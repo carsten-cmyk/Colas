@@ -11,7 +11,10 @@
     "chauffeur:start": "cd apps/chauffeur && npm start",
     "chauffeur:android": "cd apps/chauffeur && npm run android",
     "chauffeur:ios": "cd apps/chauffeur && npm run ios",
-    "chauffeur:web": "cd apps/chauffeur && npm run web"
+    "chauffeur:web": "cd apps/chauffeur && npm run web",
+    "gps-test:start": "cd apps/gps_test && npm start",
+    "gps-test:android": "cd apps/gps_test && npm run android",
+    "gps-test:ios": "cd apps/gps_test && npm run ios"
   },
   "engines": {
     "node": ">=18.0.0"

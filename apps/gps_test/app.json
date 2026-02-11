@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "gps_test",
+    "slug": "gps_test",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.colas.gpstest",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Vi bruger din lokation til at tracke din kørsel under opgaven",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Vi bruger din lokation til at tracke din kørsel, også når appen er i baggrunden",
+        "NSLocationAlwaysUsageDescription": "Vi bruger din lokation til at tracke din kørsel, også når appen er i baggrunden",
+        "UIBackgroundModes": ["location"]
+      }
+    },
+    "android": {
+      "package": "com.colas.gpstest",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_LOCATION"
+      ],
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Vi bruger din lokation til at tracke din kørsel under opgaven",
+          "locationAlwaysPermission": "Vi bruger din lokation til at tracke din kørsel, også når appen er i baggrunden",
+          "locationWhenInUsePermission": "Vi bruger din lokation til at tracke din kørsel under opgaven"
+        }
+      ]
+    ],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
