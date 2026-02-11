@@ -25,18 +25,25 @@ Colas/
 
 Before starting work, reference relevant documentation from `.claude/docs/`:
 
-1. **APP_MIGRATION_STRATEGY.md** ⭐ - Critical for architecture decisions
-2. **FRONTEND_BEST_PRACTICES.md** - React Native patterns and hooks
-3. **DESIGN_SYSTEM.md** - UI components and styling patterns
-4. **TEST_STRATEGY.md** - Testing approach
+1. **PROJECT_STATUS.md** ⭐⭐⭐ - ALWAYS UPDATE THIS FILE with progress and todos
+2. **CONFIGURATION_STRATEGY.md** ⭐⭐ - CRITICAL: Avoid hardcoded values
+3. **TECH_STACK.md** ⭐⭐ - Technology decisions and setup
+4. **APP_MIGRATION_STRATEGY.md** ⭐ - Architecture decisions
+5. **FRONTEND_BEST_PRACTICES.md** - React Native patterns and hooks
+6. **DESIGN_SYSTEM.md** - UI components and styling patterns
+7. **TEST_STRATEGY.md** - Testing approach
 
 ### Technology Stack
 
-- **Framework**: React Native with Expo
-- **Testing**: Expo Go for rapid testing on devices
-- **State Management**: TBD (follow FRONTEND_BEST_PRACTICES.md)
-- **Styling**: React Native StyleSheet (follow DESIGN_SYSTEM.md patterns)
-- **Navigation**: TBD (likely React Navigation)
+See TECH_STACK.md for complete details.
+
+**Summary:**
+- **Framework**: React Native with Expo (Pro Plan)
+- **Backend**: Supabase (auth, database, storage)
+- **Testing**: Expo Go → TestFlight → App Store
+- **Deployment**: EAS Build, Netlify for web
+- **Native**: expo-location (GPS), expo-camera (Camera)
+- **Styling**: React Native StyleSheet (configuration-first approach)
 
 ### Code Organization
 
@@ -84,6 +91,13 @@ Build production-ready native apps for Colas Transport with:
 
 ## Important Notes
 
+### CRITICAL - Always Do This
+1. **Update PROJECT_STATUS.md** after completing any task
+2. **Never hardcode** colors, currencies, or config values (see CONFIGURATION_STRATEGY.md)
+3. **Follow tech stack** documented in TECH_STACK.md
+4. **Check PROJECT_STATUS.md** at start of every session for context
+
+### General Best Practices
 - Keep documentation updated as patterns emerge
 - Add new lessons learned to LESSONS_LEARNED.md
 - Follow APP_MIGRATION_STRATEGY.md to ensure production readiness

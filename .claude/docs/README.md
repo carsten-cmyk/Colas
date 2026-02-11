@@ -7,6 +7,9 @@ Dette er dokumentationsbiblioteket for Colas App projektet. Filerne repræsenter
 ```
 .claude/docs/
 ├── README.md (denne fil)
+├── PROJECT_STATUS.md               # ⭐⭐⭐ ALTID OPDATER: Progress tracking og todos
+├── CONFIGURATION_STRATEGY.md       # ⭐⭐ KRITISK: Undgå hardcoded værdier
+├── TECH_STACK.md                   # ⭐⭐ Tech stack dokumentation
 ├── APP_MIGRATION_STRATEGY.md       # ⭐ VIGTIG: Prototype → Production guide
 ├── core/                           # Core development guidelines
 │   ├── FRONTEND_BEST_PRACTICES.md  # React og frontend patterns
@@ -55,7 +58,53 @@ Ved native app planning → Læs APP_MIGRATION_STRATEGY.md (React Native/Capacit
 
 ## Critical Documentation
 
-### 0. APP_MIGRATION_STRATEGY.md ⭐
+### 0. PROJECT_STATUS.md ⭐⭐⭐
+**Hvad:** Live progress tracking og todo list
+**Hvornår at referere:**
+- **ALTID** - Start og slut af hver session
+- Efter hver completed task - opdater status
+- Før ny task - check hvad der er in progress
+
+**Nøgle emner:**
+- Current sprint goals
+- Completed tasks med timestamps
+- Active todos prioriteret
+- Blockers og decisions
+- Metrics og next priorities
+
+**VIGTIGT:** Dette dokument SKAL opdateres løbende. Det er din hukommelse mellem sessions!
+
+### 0b. CONFIGURATION_STRATEGY.md ⭐⭐
+**Hvad:** Strategi for at undgå hardcoded værdier
+**Hvornår at referere:**
+- **FØR du skriver nogen UI kode**
+- Ved styling (brug theme config, ikke hardcoded colors)
+- Ved business logic (brug business config)
+- Ved feature toggles (brug feature flags)
+
+**Nøgle emner:**
+- Theme configuration (colors, spacing, typography)
+- Business configuration (currency, VAT, formats)
+- Feature flags
+- Environment-based config
+- Customer-specific overrides
+
+**VIGTIGT:** Implementer config-first architecture INDEN UI arbejde!
+
+### 0c. TECH_STACK.md ⭐⭐
+**Hvad:** Komplet tech stack dokumentation
+**Hvornår at referere:**
+- Ved setup af nye features
+- Når du skal integrere services
+- Ved spørgsmål om teknologier
+
+**Nøgle emner:**
+- Expo (Pro plan, native features)
+- Supabase (database, auth, storage)
+- Native permissions (GPS, Camera)
+- Deployment (TestFlight, App Store, Netlify)
+
+### 1. APP_MIGRATION_STRATEGY.md ⭐
 **Hvad:** Komplet guide til migration fra prototype til production-ready native apps
 **Hvornår at referere:**
 - **FØR du skriver mere kode** - Undgå at skulle starte forfra
