@@ -37,16 +37,6 @@
       ],
       "edgeToEdgeEnabled": true
     },
-    "plugins": [
-      [
-        "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "Vi bruger din lokation til at tracke din kørsel under opgaven",
-          "locationAlwaysPermission": "Vi bruger din lokation til at tracke din kørsel, også når appen er i baggrunden",
-          "locationWhenInUsePermission": "Vi bruger din lokation til at tracke din kørsel under opgaven"
-        }
-      ]
-    ],
     "web": {
       "favicon": "./assets/favicon.png"
     }
