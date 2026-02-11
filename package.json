@@ -1,0 +1,19 @@
+{
+  "name": "colas-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Colas Transport Apps - Monorepo",
+  "workspaces": [
+    "apps/*",
+    "shared/*"
+  ],
+  "scripts": {
+    "chauffeur:start": "cd apps/chauffeur && npm start",
+    "chauffeur:android": "cd apps/chauffeur && npm run android",
+    "chauffeur:ios": "cd apps/chauffeur && npm run ios",
+    "chauffeur:web": "cd apps/chauffeur && npm run web"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
