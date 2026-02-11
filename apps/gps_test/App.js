@@ -1,3 +1,9 @@
+// Temporary simple test to isolate the error
+import SimpleTestApp from './SimpleTestApp';
+export default SimpleTestApp;
+
+// Original app with navigation (commented out for testing)
+/*
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -56,3 +62,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+*/
