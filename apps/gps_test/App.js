@@ -1,19 +1,3 @@
-// Testing InputScreen directly (without navigation)
-import InputScreen from './src/screens/InputScreen';
-
-// Mock navigation for testing
-const mockNavigation = {
-  navigate: (screen, params) => {
-    console.log('Navigate to:', screen, params);
-    alert(`Would navigate to: ${screen}`);
-  }
-};
-
-export default function App() {
-  return <InputScreen navigation={mockNavigation} />;
-}
-
-/* Original with full navigation - will restore when InputScreen works
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -30,11 +14,28 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="auto" />
       <Stack.Navigator initialRouteName="Input">
-        <Stack.Screen name="Input" component={InputScreen} />
-        <Stack.Screen name="Tracking" component={TrackingScreen} />
-        <Stack.Screen name="Result" component={ResultScreen} />
+        <Stack.Screen
+          name="Input"
+          component={InputScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Tracking"
+          component={TrackingScreen}
+          options={{
+            title: 'Tracking',
+            headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="Result"
+          component={ResultScreen}
+          options={{
+            title: 'Resultat',
+            headerBackVisible: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-*/
