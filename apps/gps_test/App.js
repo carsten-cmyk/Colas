@@ -16,9 +16,15 @@ export default function App() {
     setCurrentScreen(screen);
   };
 
+  // Go back function
+  const goBack = () => {
+    setCurrentScreen('Input');
+    setScreenParams({});
+  };
+
   // Render current screen
   const renderScreen = () => {
-    const navigation = { navigate };
+    const navigation = { navigate, goBack };
     const route = { params: screenParams };
 
     switch (currentScreen) {
