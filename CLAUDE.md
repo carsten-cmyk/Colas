@@ -73,13 +73,34 @@ Follow conventional commits:
 - `refactor:` for code refactoring
 - `docs:` for documentation updates
 
-### Testing Workflow
+### Feature Implementation Workflow
 
-1. Make changes
-2. Test with Expo Go: `npm run chauffeur:start`
-3. Scan QR code with phone
-4. Verify functionality
-5. Commit when working
+**ALWAYS follow this workflow for new features:**
+
+1. **Planning Phase** (REQUIRED before coding)
+   - Analyze requirements (Figma design, user story, etc.)
+   - Create implementation todo list in PROJECT_STATUS.md
+   - Discuss and agree on approach with user
+   - Break down into small, testable tasks
+
+2. **Implementation Phase**
+   - Follow the agreed todo plan
+   - Update PROJECT_STATUS.md as tasks complete
+   - Use configuration-first approach (CONFIGURATION_STRATEGY.md)
+   - Follow best practices (FRONTEND_BEST_PRACTICES.md)
+
+3. **Testing Phase**
+   - Test with Expo Go: `npm run chauffeur:start`
+   - Scan QR code with phone
+   - Verify functionality
+   - Test edge cases
+
+4. **Completion Phase**
+   - Mark all related todos as [x] in PROJECT_STATUS.md
+   - Commit changes with clear message
+   - Update documentation if needed
+
+**Never start coding without a plan and user agreement!**
 
 ## Project Goals
 

@@ -8,6 +8,7 @@ Dette er dokumentationsbiblioteket for Colas App projektet. Filerne repræsenter
 .claude/docs/
 ├── README.md (denne fil)
 ├── PROJECT_STATUS.md               # ⭐⭐⭐ ALTID OPDATER: Progress tracking og todos
+├── FEATURE_PLANNING_GUIDE.md       # ⭐⭐⭐ Altid lav plan før implementation
 ├── CONFIGURATION_STRATEGY.md       # ⭐⭐ KRITISK: Undgå hardcoded værdier
 ├── TECH_STACK.md                   # ⭐⭐ Tech stack dokumentation
 ├── APP_MIGRATION_STRATEGY.md       # ⭐ VIGTIG: Prototype → Production guide
@@ -73,6 +74,23 @@ Ved native app planning → Læs APP_MIGRATION_STRATEGY.md (React Native/Capacit
 - Metrics og next priorities
 
 **VIGTIGT:** Dette dokument SKAL opdateres løbende. Det er din hukommelse mellem sessions!
+
+### 0a. FEATURE_PLANNING_GUIDE.md ⭐⭐⭐
+**Hvad:** Guide til at lave implementation plans for features
+**Hvornår at referere:**
+- **ALTID før du starter at kode på en ny feature**
+- Ved hver ny Figma design implementation
+- Ved hver ny API integration
+- Ved hver native feature implementation
+
+**Nøgle emner:**
+- Planning process (4 trin)
+- Implementation templates (Figma, API, Native)
+- Breaking down tasks
+- Getting user agreement
+- Best practices
+
+**VIGTIGT:** Lav ALTID en plan og få brugerens godkendelse FØR du koder!
 
 ### 0b. CONFIGURATION_STRATEGY.md ⭐⭐
 **Hvad:** Strategi for at undgå hardcoded værdier
