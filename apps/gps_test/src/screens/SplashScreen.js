@@ -38,7 +38,7 @@ export default function SplashScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Left Side - Worker Image (70%) */}
+      {/* Left Side - Worker Image (60%) */}
       <View style={styles.imageSection}>
         <Image
           source={require('../../assets/hero-worker.png')}
@@ -47,7 +47,7 @@ export default function SplashScreen({ navigation }) {
         />
       </View>
 
-      {/* Right Side - Yellow Strip (30%) */}
+      {/* Right Side - Yellow Strip (40%) */}
       <View style={styles.yellowStrip}>
         {/* COLAS Logo - Vertical */}
         <View style={styles.logoContainer}>
@@ -56,6 +56,16 @@ export default function SplashScreen({ navigation }) {
             style={styles.logo}
             resizeMode="contain"
           />
+        </View>
+
+        {/* Weather Info - Icon and Temperature */}
+        <View style={styles.weatherContainer}>
+          <Image
+            source={require('../../assets/icon-sun.png')}
+            style={styles.weatherIcon}
+            resizeMode="contain"
+          />
+          <Text style={styles.temperatureText}>14 Grader</Text>
         </View>
 
         {/* Text Content */}
@@ -87,9 +97,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  // Left Side - Image Section (70%)
+  // Left Side - Image Section (60%)
   imageSection: {
-    width: width * 0.7,
+    width: width * 0.6,
     height: height,
   },
   workerImage: {
@@ -97,9 +107,9 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 
-  // Right Side - Yellow Strip (30%)
+  // Right Side - Yellow Strip (40%)
   yellowStrip: {
-    width: width * 0.3,
+    width: width * 0.4,
     height: height,
     backgroundColor: theme.colors.colasYellow,
     paddingVertical: theme.spacing.lg,
@@ -120,6 +130,23 @@ const styles = StyleSheet.create({
   logo: {
     width: '80%',
     height: '100%',
+  },
+
+  // Weather Section
+  weatherContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.md,
+  },
+  weatherIcon: {
+    width: 24,
+    height: 24,
+    marginRight: theme.spacing.xs,
+  },
+  temperatureText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: theme.fontSizes.sm,
+    color: theme.colors.colasBlack,
   },
 
   // Text Content

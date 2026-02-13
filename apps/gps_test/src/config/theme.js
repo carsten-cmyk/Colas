@@ -9,8 +9,8 @@ export const theme = {
   // Colas Brand Colors
   colors: {
     // Primary brand colors
-    colasYellow: '#FFD100',      // Main brand yellow (background)
-    colasYellowLight: '#FEF589', // Light yellow (button border)
+    colasYellow: '#FEEE32',      // Main brand yellow (background) - CORRECT
+    colasYellowLight: '#FEF589', // Light yellow (button)
     colasBlack: '#000000',       // Logo and text
     colasWhite: '#FFFFFF',       // White text/elements
 
