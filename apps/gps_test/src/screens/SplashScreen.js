@@ -176,11 +176,11 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.xs,
   },
 
-  // Start Button - Circular
+  // Start Button - Circular (30% larger)
   startButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 35, // Perfect circle
+    width: 90, // 30% larger (was 70)
+    height: 90,
+    borderRadius: 45, // Perfect circle
     backgroundColor: theme.colors.colasYellowLight, // Light yellow #FEF589
     alignItems: 'center',
     justifyContent: 'center',
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   startButtonText: {
     fontFamily: theme.fonts.semibold,
-    fontSize: theme.fontSizes.sm,
+    fontSize: theme.fontSizes.md, // Slightly larger text too
     color: theme.colors.colasBlack,
   },
 });
