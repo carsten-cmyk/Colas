@@ -122,14 +122,13 @@ const styles = StyleSheet.create({
   // Logo Section
   logoContainer: {
     width: '100%',
-    height: height * 0.5, // Double size (was 0.25)
+    height: height * 0.5, // Double size
     alignItems: 'flex-end', // Right align logo
     justifyContent: 'flex-start',
     paddingTop: theme.spacing.md,
-    paddingRight: 0, // Flush to right edge
   },
   logo: {
-    width: '100%', // Full width of container
+    width: '90%', // 90% width positioned to the right
     height: '100%',
   },
 
