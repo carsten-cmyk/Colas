@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.semibold,
     fontSize: theme.fontSizes.md,
     color: theme.colors.colasBlack,
-    marginTop: 4, // Move text down 4px
-    textAlign: 'center',
-    lineHeight: 20, // Spacing between Start and arrow
+    textAlign: 'center', // Center both lines
+    width: '100%', // Full width for centering
+    lineHeight: 22, // Spacing between Start and arrow
   },
 });
