@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     height: height,
     backgroundColor: theme.colors.colasYellow,
     paddingVertical: theme.spacing.lg,
-    paddingHorizontal: theme.spacing.sm,
+    paddingLeft: theme.spacing.sm, // Only left padding
+    paddingRight: 0, // No right padding for logo
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -126,9 +127,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end', // Right align logo
     justifyContent: 'flex-start',
     paddingTop: theme.spacing.md,
+    paddingRight: 0, // No padding on right
   },
   logo: {
-    width: '90%', // 90% width positioned to the right
+    width: '100%', // Full width - flush to edge
     height: '100%',
   },
 
