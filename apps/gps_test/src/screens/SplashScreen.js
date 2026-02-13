@@ -122,15 +122,15 @@ const styles = StyleSheet.create({
 
   // Logo Section
   logoContainer: {
-    width: '100%',
+    width: '110%', // Extend beyond container
     height: height * 0.5, // Double size
     alignItems: 'flex-end', // Right align logo
     justifyContent: 'flex-start',
     paddingTop: theme.spacing.md,
-    paddingRight: 0, // No padding on right
+    marginRight: -theme.spacing.sm, // Push to right edge
   },
   logo: {
-    width: '100%', // Full width - flush to edge
+    width: '100%', // Full width - extends to edge
     height: '100%',
   },
 
