@@ -166,19 +166,21 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.md,
     color: theme.colors.colasBlack,
     marginBottom: theme.spacing.sm,
+    lineHeight: 22, // Better readability
   },
   descriptionText: {
     fontFamily: theme.fonts.regular,
     fontSize: theme.fontSizes.sm,
     color: theme.colors.colasBlack,
     marginBottom: theme.spacing.md,
-    lineHeight: 20,
+    lineHeight: 22, // Increased for readability (was 20)
   },
   statsText: {
     fontFamily: theme.fonts.regular,
     fontSize: theme.fontSizes.sm,
     color: theme.colors.colasBlack,
-    marginBottom: theme.spacing.xs,
+    marginBottom: theme.spacing.sm, // More space between items (was xs)
+    lineHeight: 20, // Better line spacing
   },
 
   // Start Button - Circular (30% larger)
