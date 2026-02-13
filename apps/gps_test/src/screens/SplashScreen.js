@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
   weatherContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: theme.spacing.xl, // More space from logo (48px)
     marginBottom: theme.spacing.md,
   },
   weatherIcon: {
