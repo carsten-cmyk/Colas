@@ -187,11 +187,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: theme.spacing.lg,
+    alignSelf: 'flex-start', // Align with left side of logo
+    marginLeft: theme.spacing.sm, // Match logo left alignment
     ...theme.shadows.md,
   },
   startButtonText: {
     fontFamily: theme.fonts.semibold,
-    fontSize: theme.fontSizes.md, // Slightly larger text too
+    fontSize: theme.fontSizes.md,
     color: theme.colors.colasBlack,
+    marginTop: 4, // Move text down 4px
   },
 });
