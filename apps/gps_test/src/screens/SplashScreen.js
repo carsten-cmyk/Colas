@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
 
   // Left Side - Image Section (60%)
   imageSection: {
-    width: width * 0.65, // Increased from 0.6 to extend image
+    width: width * 0.75, // Extended further
     height: height,
-    marginLeft: width * -0.05, // Shift 5% to the left
+    marginLeft: width * -0.15, // Shift 15% to the left (was -0.05)
   },
   workerImage: {
     width: '100%',
