@@ -2,10 +2,10 @@ import React from 'react';
 import {
   View,
   Image,
+  Text,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  SafeAreaView,
 } from 'react-native';
 import {
   useFonts,
@@ -37,9 +37,19 @@ export default function SplashScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* Colas Logo - Vertical */}
+    <View style={styles.container}>
+      {/* Left Side - Worker Image (70%) */}
+      <View style={styles.imageSection}>
+        <Image
+          source={require('../../assets/hero-worker.png')}
+          style={styles.workerImage}
+          resizeMode="cover"
+        />
+      </View>
+
+      {/* Right Side - Yellow Strip (30%) */}
+      <View style={styles.yellowStrip}>
+        {/* COLAS Logo - Vertical */}
         <View style={styles.logoContainer}>
           <Image
             source={require('../../assets/colas-logo.png')}
@@ -48,97 +58,111 @@ export default function SplashScreen({ navigation }) {
           />
         </View>
 
-        {/* Hero Image - Worker */}
-        <View style={styles.heroContainer}>
-          <Image
-            source={require('../../assets/hero-worker.png')}
-            style={styles.heroImage}
-            resizeMode="cover"
-          />
+        {/* Text Content */}
+        <View style={styles.textContent}>
+          <Text style={styles.greetingText}>Godmorgen Jens</Text>
+          <Text style={styles.descriptionText}>
+            Du har 3 opgaver{'\n'}aktiveret for Colas
+          </Text>
+          <Text style={styles.statsText}>• 3 Opgaver</Text>
+          <Text style={styles.statsText}>• 2 Aflevering</Text>
         </View>
 
-        {/* Start Button - Circular with border and black square icon */}
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.startButton}
-            onPress={handleStart}
-            activeOpacity={0.8}
-          >
-            <View style={styles.buttonCircle}>
-              {/* Black square icon */}
-              <View style={styles.blackSquare} />
-            </View>
-          </TouchableOpacity>
-        </View>
+        {/* Start Button */}
+        <TouchableOpacity
+          style={styles.startButton}
+          onPress={handleStart}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.startButtonText}>Start →</Text>
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.colasYellow,
+    flexDirection: 'row',
   },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+
+  // Left Side - Image Section (70%)
+  imageSection: {
+    width: width * 0.7,
+    height: height,
+  },
+  workerImage: {
+    width: '100%',
+    height: '100%',
+  },
+
+  // Right Side - Yellow Strip (30%)
+  yellowStrip: {
+    width: width * 0.3,
+    height: height,
+    backgroundColor: theme.colors.colasYellow,
     paddingVertical: theme.spacing.lg,
+    paddingHorizontal: theme.spacing.sm,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   // Logo Section
   logoContainer: {
-    width: width * 0.25, // 25% of screen width
-    height: height * 0.15, // 15% of screen height
+    width: '100%',
+    height: height * 0.25,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: theme.spacing.md,
   },
   logo: {
-    width: '100%',
+    width: '80%',
     height: '100%',
   },
 
-  // Hero Image Section
-  heroContainer: {
-    width: width * 0.6, // 60% of screen width
-    height: height * 0.5, // 50% of screen height
-    borderRadius: theme.borderRadius.xl,
-    overflow: 'hidden',
-    ...theme.shadows.lg,
+  // Text Content
+  textContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingHorizontal: theme.spacing.xs,
   },
-  heroImage: {
-    width: '100%',
-    height: '100%',
+  greetingText: {
+    fontFamily: theme.fonts.bold,
+    fontSize: theme.fontSizes.md,
+    color: theme.colors.colasBlack,
+    marginBottom: theme.spacing.sm,
+  },
+  descriptionText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: theme.fontSizes.sm,
+    color: theme.colors.colasBlack,
+    marginBottom: theme.spacing.md,
+    lineHeight: 20,
+  },
+  statsText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: theme.fontSizes.sm,
+    color: theme.colors.colasBlack,
+    marginBottom: theme.spacing.xs,
   },
 
-  // Button Section
-  buttonContainer: {
-    width: '100%',
-    alignItems: 'center',
-    paddingBottom: theme.spacing.xl,
-  },
+  // Start Button
   startButton: {
-    width: 80,
-    height: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40, // Perfect circle
-    borderWidth: 3,
-    borderColor: theme.colors.colasYellowLight,
+    width: '90%',
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.md,
     backgroundColor: theme.colors.colasYellow,
+    borderWidth: 2,
+    borderColor: theme.colors.colasBlack,
+    borderRadius: theme.borderRadius.md,
     alignItems: 'center',
-    justifyContent: 'center',
-    ...theme.shadows.md,
+    marginBottom: theme.spacing.lg,
   },
-  blackSquare: {
-    width: 28,
-    height: 28,
-    backgroundColor: theme.colors.colasBlack,
-    borderRadius: 4, // Slight rounding to match design
+  startButtonText: {
+    fontFamily: theme.fonts.semibold,
+    fontSize: theme.fontSizes.md,
+    color: theme.colors.colasBlack,
   },
 });
