@@ -18,7 +18,9 @@
         "NSLocationWhenInUseUsageDescription": "Vi bruger din lokation til at tracke din kørsel under opgaven",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Vi bruger din lokation til at tracke din kørsel, også når appen er i baggrunden",
         "NSLocationAlwaysUsageDescription": "Vi bruger din lokation til at tracke din kørsel, også når appen er i baggrunden",
-        "UIBackgroundModes": ["location"]
+        "UIBackgroundModes": [
+          "location"
+        ]
       }
     },
     "android": {
@@ -37,6 +39,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
