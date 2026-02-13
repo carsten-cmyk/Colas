@@ -112,9 +112,10 @@ const styles = StyleSheet.create({
   logoContainer: {
     width: '100%',
     height: height * 0.25,
-    alignItems: 'center',
+    alignItems: 'flex-end', // Right align logo
     justifyContent: 'flex-start',
     paddingTop: theme.spacing.md,
+    paddingRight: theme.spacing.xs,
   },
   logo: {
     width: '80%',
