@@ -68,7 +68,7 @@ export default function SplashScreen({ navigation }) {
           <Text style={styles.statsText}>• 2 Aflevering</Text>
         </View>
 
-        {/* Start Button */}
+        {/* Start Button - Circular */}
         <TouchableOpacity
           style={styles.startButton}
           onPress={handleStart}
@@ -149,21 +149,20 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.xs,
   },
 
-  // Start Button
+  // Start Button - Circular
   startButton: {
-    width: '90%',
-    paddingVertical: theme.spacing.sm,
-    paddingHorizontal: theme.spacing.md,
-    backgroundColor: theme.colors.colasYellow,
-    borderWidth: 2,
-    borderColor: theme.colors.colasBlack,
-    borderRadius: theme.borderRadius.md,
+    width: 70,
+    height: 70,
+    borderRadius: 35, // Perfect circle
+    backgroundColor: theme.colors.colasYellowLight, // Light yellow #FEF589
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: theme.spacing.lg,
+    ...theme.shadows.md,
   },
   startButtonText: {
     fontFamily: theme.fonts.semibold,
-    fontSize: theme.fontSizes.md,
+    fontSize: theme.fontSizes.sm,
     color: theme.colors.colasBlack,
   },
 });
