@@ -57,7 +57,7 @@ export default function SplashScreen({ navigation }) {
           />
         </View>
 
-        {/* Start Button - Circular with border */}
+        {/* Start Button - Circular with border and black square icon */}
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.startButton}
@@ -65,11 +65,8 @@ export default function SplashScreen({ navigation }) {
             activeOpacity={0.8}
           >
             <View style={styles.buttonCircle}>
-              <Image
-                source={require('../../assets/icon.png')}
-                style={styles.buttonIcon}
-                resizeMode="contain"
-              />
+              {/* Black square icon */}
+              <View style={styles.blackSquare} />
             </View>
           </TouchableOpacity>
         </View>
@@ -138,9 +135,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     ...theme.shadows.md,
   },
-  buttonIcon: {
-    width: 32,
-    height: 32,
-    tintColor: theme.colors.colasBlack,
+  blackSquare: {
+    width: 28,
+    height: 28,
+    backgroundColor: theme.colors.colasBlack,
+    borderRadius: 4, // Slight rounding to match design
   },
 });
