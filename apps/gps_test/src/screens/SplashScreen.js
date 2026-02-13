@@ -84,7 +84,9 @@ export default function SplashScreen({ navigation }) {
           onPress={handleStart}
           activeOpacity={0.8}
         >
-          <Text style={styles.startButtonText}>Start →</Text>
+          <Text style={styles.startButtonText}>
+            Start{'\n'}→
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -196,5 +198,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.md,
     color: theme.colors.colasBlack,
     marginTop: 4, // Move text down 4px
+    textAlign: 'center',
+    lineHeight: 20, // Spacing between Start and arrow
   },
 });
