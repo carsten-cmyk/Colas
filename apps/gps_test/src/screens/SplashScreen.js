@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
   weatherContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: theme.spacing.xl, // More space from logo (48px)
-    marginBottom: theme.spacing.md,
+    marginTop: theme.spacing.lg, // Space from logo (32px)
+    marginBottom: theme.spacing.xs, // Less bottom margin
   },
   weatherIcon: {
     width: 24,
@@ -156,10 +156,10 @@ const styles = StyleSheet.create({
 
   // Text Content
   textContent: {
-    flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start', // Start from top instead of center
     alignItems: 'flex-start',
     paddingHorizontal: theme.spacing.xs,
+    marginTop: theme.spacing.sm, // Space from weather
   },
   greetingText: {
     fontFamily: theme.fonts.bold,
