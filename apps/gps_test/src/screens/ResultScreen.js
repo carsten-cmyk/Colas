@@ -31,9 +31,6 @@ export default function ResultScreen({ navigation, route }) {
         <View style={styles.content}>
           {/* Success Header */}
           <View style={styles.header}>
-            <View style={styles.successIcon}>
-              <Text style={styles.checkmark}>✓</Text>
-            </View>
             <Text style={styles.title}>Opgave afsluttet</Text>
           </View>
 
@@ -51,10 +48,7 @@ export default function ResultScreen({ navigation, route }) {
 
             {/* Distance */}
             <View style={styles.resultCard}>
-              <View style={styles.resultHeader}>
-                <Text style={styles.resultIcon}>📍</Text>
-                <Text style={styles.resultLabel}>Distance</Text>
-              </View>
+              <Text style={styles.resultLabel}>Distance</Text>
               <View style={styles.resultStats}>
                 <View>
                   <Text style={styles.resultValue}>
@@ -79,10 +73,7 @@ export default function ResultScreen({ navigation, route }) {
 
             {/* Time */}
             <View style={styles.resultCard}>
-              <View style={styles.resultHeader}>
-                <Text style={styles.resultIcon}>⏱️</Text>
-                <Text style={styles.resultLabel}>Køretid</Text>
-              </View>
+              <Text style={styles.resultLabel}>Køretid</Text>
               <View style={styles.resultStats}>
                 <View>
                   <Text style={styles.resultValue}>
@@ -100,41 +91,10 @@ export default function ResultScreen({ navigation, route }) {
               </View>
             </View>
 
-            {/* Pause */}
-            {pauseDuration > 0 && (
-              <View style={styles.resultCard}>
-                <View style={styles.resultHeader}>
-                  <Text style={styles.resultIcon}>⏸️</Text>
-                  <Text style={styles.resultLabel}>Pause</Text>
-                </View>
-                <Text style={styles.resultValue}>
-                  {formatDuration(pauseDuration)}
-                </Text>
-              </View>
-            )}
-
-            {/* Total Time */}
-            <View style={styles.resultCard}>
-              <View style={styles.resultHeader}>
-                <Text style={styles.resultIcon}>⏰</Text>
-                <Text style={styles.resultLabel}>Total tid</Text>
-              </View>
-              <Text style={styles.resultValue}>
-                {formatDuration(actualTime + pauseDuration)}
-              </Text>
-              <Text style={styles.resultSubtext}>
-                Inkl. {formatDuration(pauseDuration)} pause
-              </Text>
-            </View>
-
             {/* GPS Stats */}
             <View style={styles.resultCard}>
-              <View style={styles.resultHeader}>
-                <Text style={styles.resultIcon}>🛰️</Text>
-                <Text style={styles.resultLabel}>GPS data</Text>
-              </View>
+              <Text style={styles.resultLabel}>GPS punkter</Text>
               <Text style={styles.resultValue}>{gpsPoints.length}</Text>
-              <Text style={styles.resultSubtext}>GPS punkter registreret</Text>
             </View>
           </View>
 
@@ -165,82 +125,61 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginTop: 40,
-    marginBottom: 30,
-  },
-  successIcon: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#34C759',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  checkmark: {
-    fontSize: 48,
-    color: '#fff',
+    marginTop: 10,
+    marginBottom: 15,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#1a1a1a',
   },
   routeCard: {
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 16,
-    marginBottom: 24,
+    padding: 12,
+    marginBottom: 12,
   },
   routeLabel: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#666',
-    marginBottom: 8,
+    marginBottom: 4,
   },
   routeFrom: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#1a1a1a',
     fontWeight: '500',
   },
   routeArrow: {
-    fontSize: 20,
+    fontSize: 16,
     color: '#666',
     textAlign: 'center',
-    marginVertical: 4,
+    marginVertical: 2,
   },
   routeTo: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#1a1a1a',
     fontWeight: '500',
   },
   resultsSection: {
-    marginBottom: 20,
+    marginBottom: 12,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
     color: '#1a1a1a',
-    marginBottom: 12,
+    marginBottom: 8,
   },
   resultCard: {
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-  },
-  resultHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  resultIcon: {
-    fontSize: 24,
-    marginRight: 8,
+    padding: 12,
+    marginBottom: 8,
   },
   resultLabel: {
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: '600',
     color: '#1a1a1a',
+    marginBottom: 8,
   },
   resultStats: {
     flexDirection: 'row',
@@ -248,38 +187,38 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   resultValue: {
-    fontSize: 32,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#34C759',
   },
   resultValueSmall: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: '600',
     color: '#999',
   },
   resultSubtext: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#666',
-    marginTop: 4,
+    marginTop: 2,
   },
   resultDivider: {
     width: 1,
-    height: 40,
+    height: 30,
     backgroundColor: '#e0e0e0',
-    marginHorizontal: 20,
+    marginHorizontal: 16,
   },
   resultDiff: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#666',
-    marginTop: 12,
+    marginTop: 8,
     textAlign: 'center',
   },
   newTripButton: {
     backgroundColor: '#007AFF',
     borderRadius: 12,
-    padding: 16,
+    padding: 14,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 12,
   },
   newTripButtonText: {
     color: '#fff',

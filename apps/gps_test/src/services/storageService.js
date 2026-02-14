@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORAGE_KEY = '@colas_gps_test:sessions';
+const ACTIVE_TRACKING_KEY = '@colas_gps_test:active_tracking';
 
 /**
  * Save a tracking session
@@ -68,5 +69,49 @@ export async function clearAllSessions() {
   } catch (error) {
     console.error('Error clearing sessions:', error);
     return false;
+  }
+}
+
+/**
+ * Save location update from background task
+ */
+export async function saveLocationUpdate(location) {
+  try {
+    const existing = await AsyncStorage.getItem(ACTIVE_TRACKING_KEY);
+    const data = existing ? JSON.parse(existing) : { points: [] };
+
+    data.points.push({
+      ...location,
+      timestamp: location.timestamp || Date.now(),
+    });
+    data.lastUpdate = Date.now();
+
+    await AsyncStorage.setItem(ACTIVE_TRACKING_KEY, JSON.stringify(data));
+  } catch (error) {
+    console.error('Error saving location update:', error);
+  }
+}
+
+/**
+ * Get active tracking data (for polling from TrackingScreen)
+ */
+export async function getActiveTrackingData() {
+  try {
+    const data = await AsyncStorage.getItem(ACTIVE_TRACKING_KEY);
+    return data ? JSON.parse(data) : null;
+  } catch (error) {
+    console.error('Error getting active tracking data:', error);
+    return null;
+  }
+}
+
+/**
+ * Clear active tracking data
+ */
+export async function clearActiveTracking() {
+  try {
+    await AsyncStorage.removeItem(ACTIVE_TRACKING_KEY);
+  } catch (error) {
+    console.error('Error clearing active tracking:', error);
   }
 }

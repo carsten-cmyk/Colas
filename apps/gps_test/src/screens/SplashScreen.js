@@ -70,12 +70,8 @@ export default function SplashScreen({ navigation }) {
 
         {/* Text Content */}
         <View style={styles.textContent}>
-          <Text style={styles.greetingText}>Godmorgen Jens</Text>
-          <Text style={styles.descriptionText}>
-            Du har 3 opgaver{'\n'}aktiveret for Colas
-          </Text>
-          <Text style={styles.statsText}>• 3 Opgaver</Text>
-          <Text style={styles.statsText}>• 2 Aflevering</Text>
+          <Text style={styles.greetingText}>Godmorgen.</Text>
+          <Text style={styles.subtitleText}>Idag bliver en god dag.</Text>
         </View>
 
         {/* Start Button - Circular */}
@@ -84,9 +80,7 @@ export default function SplashScreen({ navigation }) {
           onPress={handleStart}
           activeOpacity={0.8}
         >
-          <Text style={styles.startButtonText}>
-            Start{'\n'}→
-          </Text>
+          <Text style={styles.startButtonText}>→</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -118,7 +112,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.spacing.lg,
     paddingLeft: theme.spacing.sm, // Only left padding
     paddingRight: 0, // No right padding for logo
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 
@@ -129,6 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end', // Right align logo
     justifyContent: 'flex-start',
     paddingTop: theme.spacing.md,
+    marginTop: height * 0.05, // Move logo 5% down
     marginRight: -theme.spacing.xxl, // Push COMPLETELY to edge (64px)
   },
   logo: {
@@ -138,70 +133,63 @@ const styles = StyleSheet.create({
 
   // Weather Section
   weatherContainer: {
-    flexDirection: 'row',
+    flexDirection: 'row', // Icon next to text
     alignItems: 'center',
-    marginTop: theme.spacing.lg, // Space from logo (32px)
-    marginBottom: theme.spacing.xs, // Less bottom margin
+    alignSelf: 'flex-start', // Align to left
+    marginLeft: theme.spacing.sm, // Match text padding
+    marginTop: 80, // 4 line breaks from logo (~4br)
+    marginBottom: height * 0.02, // 2% spacing to text
   },
   weatherIcon: {
     width: 24,
     height: 24,
-    marginRight: theme.spacing.xs,
+    marginRight: 4, // Reduced spacing to text
   },
   temperatureText: {
     fontFamily: theme.fonts.regular,
-    fontSize: theme.fontSizes.sm,
+    fontSize: theme.fontSizes.xs, // Smaller text (12px)
     color: theme.colors.colasBlack,
   },
 
   // Text Content
   textContent: {
-    justifyContent: 'flex-start', // Start from top instead of center
+    justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    paddingHorizontal: theme.spacing.xs,
-    marginTop: theme.spacing.sm, // Space from weather
+    paddingHorizontal: theme.spacing.sm,
+    marginBottom: height * 0.03, // 3% spacing to button (reduced)
   },
   greetingText: {
     fontFamily: theme.fonts.bold,
-    fontSize: theme.fontSizes.md,
+    fontSize: theme.fontSizes.xs, // Smaller text (12px)
     color: theme.colors.colasBlack,
-    marginBottom: theme.spacing.sm,
-    lineHeight: 22, // Better readability
+    lineHeight: 18,
+    marginBottom: 4,
   },
-  descriptionText: {
+  subtitleText: {
     fontFamily: theme.fonts.regular,
-    fontSize: theme.fontSizes.sm,
+    fontSize: theme.fontSizes.xs, // Smaller text (12px)
     color: theme.colors.colasBlack,
-    marginBottom: theme.spacing.md,
-    lineHeight: 22, // Increased for readability (was 20)
-  },
-  statsText: {
-    fontFamily: theme.fonts.regular,
-    fontSize: theme.fontSizes.sm,
-    color: theme.colors.colasBlack,
-    marginBottom: theme.spacing.sm, // More space between items (was xs)
-    lineHeight: 20, // Better line spacing
+    lineHeight: 18,
   },
 
-  // Start Button - Circular (30% larger)
+  // Start Button - Circular
   startButton: {
-    width: 90, // 30% larger (was 70)
-    height: 90,
-    borderRadius: 45, // Perfect circle
+    width: 70,
+    height: 70,
+    borderRadius: 35, // Perfect circle
     backgroundColor: theme.colors.colasYellowLight, // Light yellow #FEF589
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: theme.spacing.lg,
-    alignSelf: 'flex-start', // Align with left side of logo
-    marginLeft: theme.spacing.sm, // Match logo left alignment
+    marginBottom: theme.spacing.sm, // Reduced margin (16px)
+    alignSelf: 'flex-start', // Left aligned
+    marginLeft: theme.spacing.md, // Centered relative to text (~24px)
     ...theme.shadows.md,
   },
   startButtonText: {
     fontFamily: theme.fonts.semibold,
-    fontSize: theme.fontSizes.md,
+    fontSize: theme.fontSizes.sm, // Smaller text (14px, down from 16px)
     color: theme.colors.colasBlack,
-    textAlign: 'center', // Center both lines
-    width: '100%', // Full width for centering
-    lineHeight: 22, // Spacing between Start and arrow
+    textAlign: 'center',
+    marginTop: 3, // Move text down 3px
   },
 });

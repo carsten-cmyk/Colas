@@ -11,9 +11,15 @@ import {
   startLocationTracking,
   stopLocationTracking,
   requestLocationPermissions,
+  startBackgroundTracking,
+  stopBackgroundTracking,
 } from '../services/locationService';
 import { calculateTotalDistance, formatDistance, formatDuration } from '../utils/distance';
-import { saveSession } from '../services/storageService';
+import {
+  saveSession,
+  getActiveTrackingData,
+  clearActiveTracking,
+} from '../services/storageService';
 
 export default function TrackingScreen({ navigation, route }) {
   const { fromAddress, toAddress, estimatedDistance, estimatedDuration } = route.params;
@@ -38,6 +44,36 @@ export default function TrackingScreen({ navigation, route }) {
     };
   }, []);
 
+  // Poll for background location updates
+  useEffect(() => {
+    if (!isTracking) return;
+
+    const pollInterval = setInterval(async () => {
+      const bgData = await getActiveTrackingData();
+      if (bgData && bgData.points.length > 0) {
+        // Merge background points into gpsPoints state
+        setGpsPoints((prev) => {
+          // Deduplicate by timestamp
+          const existingTimestamps = new Set(prev.map(p => p.timestamp));
+          const newPoints = bgData.points.filter(p => !existingTimestamps.has(p.timestamp));
+
+          if (newPoints.length > 0) {
+            const merged = [...prev, ...newPoints];
+            const distance = calculateTotalDistance(merged);
+            setActualDistance(distance);
+            return merged;
+          }
+          return prev;
+        });
+
+        // Clear processed data
+        await clearActiveTracking();
+      }
+    }, 2000); // Poll every 2 seconds
+
+    return () => clearInterval(pollInterval);
+  }, [isTracking]);
+
   const initializeTracking = async () => {
     const permissionResult = await requestLocationPermissions();
     if (!permissionResult.granted) {
@@ -57,31 +93,45 @@ export default function TrackingScreen({ navigation, route }) {
       clearInterval(timerIntervalRef.current);
     }
     await stopLocationTracking();
+    await stopBackgroundTracking();
+    await clearActiveTracking();
   };
 
   const handleStartTracking = async () => {
     try {
       startTimeRef.current = Date.now();
 
-      // Start timer
+      // Start timer - use refs to avoid stale closure
       timerIntervalRef.current = setInterval(() => {
-        if (!isPaused) {
-          const elapsed = Math.floor((Date.now() - startTimeRef.current - pauseDuration) / 1000 / 60);
+        if (pauseStartRef.current === null) {
+          // Not paused - calculate elapsed time
+          const totalPauseTime = pauseDuration;
+          const elapsed = Math.floor((Date.now() - startTimeRef.current - totalPauseTime) / 1000 / 60);
           setElapsedTime(elapsed);
         }
       }, 1000);
 
-      // Start GPS tracking
+      // Start foreground GPS tracking
       await startLocationTracking((location) => {
         if (!isPaused) {
+          console.log(`GPS point: ${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}`);
           setGpsPoints((prev) => {
             const newPoints = [...prev, location];
             const distance = calculateTotalDistance(newPoints);
             setActualDistance(distance);
+            console.log(`Total distance: ${distance.toFixed(3)} km, Points: ${newPoints.length}`);
             return newPoints;
           });
         }
       });
+
+      // Start background GPS tracking (continues when screen locked)
+      // Graceful degradation: if background fails, foreground still works
+      try {
+        await startBackgroundTracking();
+      } catch (bgError) {
+        console.log('Background tracking not available:', bgError);
+      }
 
       setIsTracking(true);
     } catch (error) {
@@ -90,7 +140,7 @@ export default function TrackingScreen({ navigation, route }) {
     }
   };
 
-  const handlePause = () => {
+  const handlePause = async () => {
     if (isPaused) {
       // Resume
       const pauseEnd = Date.now();
@@ -98,10 +148,24 @@ export default function TrackingScreen({ navigation, route }) {
       setPauseDuration((prev) => prev + thisPause);
       pauseStartRef.current = null;
       setIsPaused(false);
+
+      // Restart background tracking (optional)
+      try {
+        await startBackgroundTracking();
+      } catch (error) {
+        console.log('Background tracking not available');
+      }
     } else {
       // Pause
       pauseStartRef.current = Date.now();
       setIsPaused(true);
+
+      // Stop background tracking (optional)
+      try {
+        await stopBackgroundTracking();
+      } catch (error) {
+        console.log('Background tracking not available');
+      }
     }
   };
 
@@ -194,6 +258,11 @@ export default function TrackingScreen({ navigation, route }) {
             <Text style={styles.statSubtext}>
               / ~{formatDuration(estimatedDuration)}
             </Text>
+            {pauseDuration > 0 && (
+              <Text style={styles.pauseText}>
+                Pause: {formatDuration(Math.floor(pauseDuration / 1000 / 60))}
+              </Text>
+            )}
           </View>
 
           {/* GPS Points */}
@@ -238,8 +307,8 @@ const styles = StyleSheet.create({
   },
   statusHeader: {
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: 10,
+    marginBottom: 15,
   },
   statusBadge: {
     paddingHorizontal: 20,
@@ -260,64 +329,70 @@ const styles = StyleSheet.create({
   routeInfo: {
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 16,
-    marginBottom: 20,
+    padding: 12,
+    marginBottom: 12,
   },
   routeLabel: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#666',
-    marginTop: 8,
+    marginTop: 4,
   },
   routeText: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#1a1a1a',
     fontWeight: '500',
-    marginBottom: 8,
+    marginBottom: 4,
   },
   statsContainer: {
-    flex: 1,
+    marginBottom: 12,
   },
   statCard: {
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 20,
-    marginBottom: 12,
-  },
-  statLabel: {
-    fontSize: 14,
-    color: '#666',
+    padding: 12,
     marginBottom: 8,
   },
+  statLabel: {
+    fontSize: 12,
+    color: '#666',
+    marginBottom: 4,
+  },
   statValue: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#007AFF',
   },
   statSubtext: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#999',
+    marginTop: 2,
+  },
+  pauseText: {
+    fontSize: 11,
+    color: '#FF9500',
     marginTop: 4,
+    fontWeight: '500',
   },
   progressBarBg: {
-    height: 6,
+    height: 4,
     backgroundColor: '#e0e0e0',
-    borderRadius: 3,
-    marginTop: 12,
+    borderRadius: 2,
+    marginTop: 8,
     overflow: 'hidden',
   },
   progressBarFill: {
     height: '100%',
     backgroundColor: '#007AFF',
-    borderRadius: 3,
+    borderRadius: 2,
   },
   controls: {
-    marginTop: 20,
+    marginTop: 0,
   },
   button: {
     borderRadius: 12,
-    padding: 16,
+    padding: 14,
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 8,
   },
   pauseButton: {
     backgroundColor: '#FF9500',

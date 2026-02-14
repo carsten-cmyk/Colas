@@ -2,8 +2,31 @@ import * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
 import { trackingConfig } from '../config/tracking';
 import { calculateDistance } from '../utils/distance';
+import { saveLocationUpdate } from './storageService';
 
 const LOCATION_TASK_NAME = 'background-location-task';
+
+// CRITICAL: Define background task at module load time (top of file)
+TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
+  if (error) {
+    console.error('Background location error:', error);
+    return;
+  }
+
+  if (data) {
+    const { locations } = data;
+    const location = locations[0];
+
+    // Cannot update React state - use AsyncStorage instead
+    await saveLocationUpdate({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      accuracy: location.coords.accuracy,
+      speed: location.coords.speed,
+      timestamp: location.timestamp,
+    });
+  }
+});
 
 let locationSubscription = null;
 let isTracking = false;
@@ -16,19 +39,17 @@ export async function requestLocationPermissions() {
     // Request foreground permissions
     const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
     if (foregroundStatus !== 'granted') {
-      return { granted: false, message: 'Foreground location permission denied' };
+      return { granted: false, message: 'Lokation adgang nødvendig. Check iOS Settings → Expo Go → Lokation' };
     }
 
-    // Request background permissions (needed for tracking while app is backgrounded)
-    const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
-    if (backgroundStatus !== 'granted') {
-      return { granted: false, message: 'Background location permission denied' };
-    }
+    // Skip background permissions in Expo Go (not supported)
+    // Will request in production build only
+    console.log('Foreground location permission granted');
 
     return { granted: true };
   } catch (error) {
     console.error('Error requesting permissions:', error);
-    return { granted: false, message: error.message };
+    return { granted: false, message: 'Kunne ikke få lokation adgang: ' + error.message };
   }
 }
 
@@ -129,4 +150,52 @@ export async function getCurrentLocation() {
 export function isWithinGeofence(currentLat, currentLon, destinationLat, destinationLon) {
   const distance = calculateDistance(currentLat, currentLon, destinationLat, destinationLon);
   return distance <= trackingConfig.geofenceRadius;
+}
+
+/**
+ * Start background location tracking (continues when screen locked)
+ * NOTE: Does not work in Expo Go - only in development/production builds
+ */
+export async function startBackgroundTracking() {
+  try {
+    // Check if running in Expo Go (background location not supported)
+    const { status } = await Location.getBackgroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Background location not available (Expo Go limitation)');
+      return; // Gracefully skip - foreground tracking will still work
+    }
+
+    await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+      accuracy: Location.Accuracy.High,
+      timeInterval: 10000, // 10 seconds
+      distanceInterval: 50, // 50 meters
+      foregroundService: {
+        notificationTitle: 'GPS Tracking Aktiv',
+        notificationBody: 'Din kørsel bliver tracket',
+        notificationColor: '#007AFF',
+      },
+      pausesUpdatesAutomatically: false,
+      activityType: Location.ActivityType.AutomotiveNavigation,
+      showsBackgroundLocationIndicator: true, // iOS
+    });
+    console.log('Background tracking started');
+  } catch (error) {
+    console.log('Background tracking not available:', error.message);
+    // Don't throw - let foreground tracking work
+  }
+}
+
+/**
+ * Stop background location tracking
+ */
+export async function stopBackgroundTracking() {
+  try {
+    const isStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME);
+    if (isStarted) {
+      await Location.stopLocationUpdatesAsync(LOCATION_TASK_NAME);
+      console.log('Background tracking stopped');
+    }
+  } catch (error) {
+    console.error('Error stopping background tracking:', error);
+  }
 }

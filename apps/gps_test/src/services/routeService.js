@@ -11,15 +11,24 @@ export async function calculateRoute(fromAddress, toAddress) {
   }
 
   try {
-    const url = `${API_ENDPOINTS.distanceMatrix}?origins=${encodeURIComponent(
-      fromAddress
-    )}&destinations=${encodeURIComponent(toAddress)}&key=${GOOGLE_MAPS_API_KEY}`;
+    // Build URL with all parameters (matching Google's example)
+    const url = `${API_ENDPOINTS.distanceMatrix}?` +
+      `origins=${encodeURIComponent(fromAddress)}` +
+      `&destinations=${encodeURIComponent(toAddress)}` +
+      `&mode=driving` + // Travel mode: driving
+      `&units=metric` + // Use kilometers and meters
+      `&language=da` + // Danish language for responses
+      `&key=${GOOGLE_MAPS_API_KEY}`;
 
     const response = await fetch(url);
     const data = await response.json();
 
-    if (data.status !== 'OK' || data.rows[0].elements[0].status !== 'OK') {
-      throw new Error('Could not calculate route');
+    if (data.status !== 'OK') {
+      throw new Error(`API Error: ${data.status} - ${data.error_message || 'Unknown error'}`);
+    }
+
+    if (data.rows[0].elements[0].status !== 'OK') {
+      throw new Error(`Route Error: ${data.rows[0].elements[0].status}`);
     }
 
     const element = data.rows[0].elements[0];

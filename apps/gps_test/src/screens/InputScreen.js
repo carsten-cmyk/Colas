@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   Alert,
@@ -13,6 +12,7 @@ import {
 } from 'react-native';
 import { calculateRoute } from '../services/routeService';
 import { formatDistance, formatDuration } from '../utils/distance';
+import AddressAutocompleteInput from '../components/AddressAutocompleteInput';
 
 export default function InputScreen({ navigation }) {
   const [fromAddress, setFromAddress] = useState('');
@@ -69,24 +69,18 @@ export default function InputScreen({ navigation }) {
 
           {/* Address Inputs */}
           <View style={styles.inputSection}>
-            <Text style={styles.label}>Fra-adresse</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="F.eks. Uddannelsescenter Syd, Lolland"
+            <AddressAutocompleteInput
               value={fromAddress}
-              onChangeText={setFromAddress}
-              autoCapitalize="words"
-              autoCorrect={false}
+              onAddressSelect={setFromAddress}
+              placeholder="F.eks. Uddannelsescenter Syd, Lolland"
+              label="Fra-adresse"
             />
 
-            <Text style={styles.label}>Til-adresse</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="F.eks. Køge Asfaltfabrik"
+            <AddressAutocompleteInput
               value={toAddress}
-              onChangeText={setToAddress}
-              autoCapitalize="words"
-              autoCorrect={false}
+              onAddressSelect={setToAddress}
+              placeholder="F.eks. Køge Asfaltfabrik"
+              label="Til-adresse"
             />
 
             {/* Calculate Button */}
@@ -165,21 +159,7 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     marginBottom: 20,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
-    marginTop: 16,
-  },
-  input: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
+    zIndex: 2,
   },
   button: {
     borderRadius: 12,

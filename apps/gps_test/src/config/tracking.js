@@ -5,8 +5,8 @@ export const trackingConfig = {
   accuracy: Location.Accuracy.High,
 
   // Update intervals
-  distanceInterval: 50, // Update every 50 meters
-  timeInterval: 10000,  // Update every 10 seconds (10000ms)
+  distanceInterval: 5, // Update every 5 meters (for testing)
+  timeInterval: 5000,  // Update every 5 seconds (5000ms)
 
   // Geofence settings
   geofenceRadius: 50, // 50 meters radius for destination arrival
